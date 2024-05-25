@@ -3,15 +3,11 @@ name: Cypress Tests
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
-  test:
+  cypress:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20.x]
 
     steps:
       - name: Checkout repository
@@ -20,12 +16,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "120.11.1"
 
       - name: Install dependencies
         run: npm install
 
       - name: Run Cypress tests
         run: npx cypress run
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
