@@ -1,0 +1,43 @@
+config:
+  target: "https://ipgeolocation.abstractapi.com/v1"
+  phases:
+    - duration: 300
+      arrivalRate: 10
+  defaults:
+    headers:
+      content-type: "application/json"
+scenarios:
+  - flow:
+      - post:
+          url: "/"
+          json:
+            ip_address: "166.171.248.255"
+            city: "San Jose"
+            city_geoname_id: 5392171
+            region: "California"
+            region_iso_code: "CA"
+            region_geoname_id: 5332921
+            postal_code: "95141"
+            country: "United States"
+            country_code: "US"
+            country_geoname_id: 6252001
+            country_is_eu: false
+            continent: "North America"
+            continent_code: "NA"
+            continent_geoname_id: 6255149
+            longitude: -121.7714
+            latitude: 37.1835
+            security:
+              is_vpn: false
+          validate:
+            - statusCode: 200
+
+# Metryki końcowe
+metrics:
+  - name: "Response Time (p95)"
+    type: "response_time"
+    stat: "p95"
+  - name: "Requests per second"
+    type: "requests_per_second"
+  - name: "Error Rate"
+    type: "errors"
